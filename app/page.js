@@ -166,9 +166,9 @@ export default function Home() {
             color: 'white',
             '& .MuiInputLabel-root': { color: 'white' },
             '& .MuiOutlinedInput-root': {
-              '& fieldset': { borderColor: 'white' },
-              '&:hover fieldset': { borderColor: 'white' },
-              '&.Mui-focused fieldset': { borderColor: 'white' },
+              '& fieldset': { borderColor: 'transparent' }, // Remove the border color
+              '&:hover fieldset': { borderColor: 'transparent' },
+              '&.Mui-focused fieldset': { borderColor: 'transparent' },
               '& input': { color: 'white' }, // Change input text to white
             },
           }}
