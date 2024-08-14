@@ -9,9 +9,9 @@ import {
 
 const modalStyle = {
   position: 'absolute',
-  top: '15%',
-  left: '5%',
-  transform: 'translateY(-50%)',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)', // Center the modal
   width: { xs: '90%', sm: '70%', md: '400px' }, // Responsive width for modal
   bgcolor: 'rgba(255, 255, 255, 0.8)', // Slight transparency for the modal
   borderRadius: 8,
@@ -43,15 +43,28 @@ export default function Home() {
   }, []);
 
   const addItem = async (item) => {
-    const docRef = doc(collection(firestore, 'inventory'), item);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      const { quantity } = docSnap.data();
-      await setDoc(docRef, { quantity: quantity + 1 });
-    } else {
-      await setDoc(docRef, { quantity: 1 });
+    if (!item) {
+      console.error("Item name is empty, cannot add an empty item.");
+      return;
     }
-    await updateInventory();
+
+    const docRef = doc(collection(firestore, 'inventory'), item);
+
+    try {
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const { quantity } = docSnap.data();
+        await setDoc(docRef, { quantity: quantity + 1 });
+      } else {
+        await setDoc(docRef, { quantity: 1 });
+      }
+
+      await updateInventory();
+      console.log("Item added successfully.");
+    } catch (error) {
+      console.error("Error adding item: ", error);
+    }
   };
 
   const removeItem = async (item) => {
@@ -106,7 +119,7 @@ export default function Home() {
           variant="h1"
           sx={{
             fontWeight: '300',
-            color: '#1B5E20',
+            color: 'white',
             marginBottom: 1,
             fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem' }, // Responsive font size
           }}
@@ -116,7 +129,7 @@ export default function Home() {
         <Typography
           variant="h5"
           sx={{
-            color: '#1B5E20',
+            color: 'white',
             fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem' }, // Responsive font size for description
           }}
         >
@@ -150,6 +163,14 @@ export default function Home() {
             borderRadius: 3,
             boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
             fontSize: { xs: '0.8rem', sm: '1rem' }, // Responsive font size for input
+            color: 'white',
+            '& .MuiInputLabel-root': { color: 'white' },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': { borderColor: 'white' },
+              '&:hover fieldset': { borderColor: 'white' },
+              '&.Mui-focused fieldset': { borderColor: 'white' },
+              '& input': { color: 'white' }, // Change input text to white
+            },
           }}
         />
 
@@ -174,6 +195,29 @@ export default function Home() {
         >
           Add New Item
         </Button>
+
+        <Modal open={open} onClose={handleClose}>
+          <Box sx={modalStyle}>
+            <TextField
+              id="item-name"
+              label="Item Name"
+              variant="outlined"
+              value={itemName}
+              onChange={(e) => setItemName(e.target.value)}
+              fullWidth
+            />
+            <Button
+              variant="contained"
+              onClick={() => {
+                addItem(itemName);
+                setItemName(''); // Clear the input after adding the item
+                handleClose();
+              }}
+            >
+              Add Item
+            </Button>
+          </Box>
+        </Modal>
 
         <Stack
           width="100%"
