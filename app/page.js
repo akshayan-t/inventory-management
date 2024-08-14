@@ -12,7 +12,7 @@ const modalStyle = {
   top: '15%',
   left: '5%',
   transform: 'translateY(-50%)',
-  width: 400,
+  width: { xs: '90%', sm: '70%', md: '400px' }, // Responsive width for modal
   bgcolor: 'rgba(255, 255, 255, 0.8)', // Slight transparency for the modal
   borderRadius: 8,
   boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.2)',
@@ -88,23 +88,38 @@ export default function Home() {
         backgroundColor: '#C8E6C9', // Light green background
         backgroundImage: 'url(/path/to/pattern.svg)', // Placeholder for a nature-inspired pattern
         backgroundSize: 'cover',
-        padding: 4,
+        padding: { xs: 2, sm: 3, md: 4 }, // Responsive padding
       }}
     >
       <Box
         sx={{
-          marginLeft: '2%',
+          marginLeft: { xs: '5%', sm: '3%', md: '2%' }, // Responsive margin
           marginTop: '1%',
-          padding: 3,
+          padding: { xs: 2, sm: 3 }, // Responsive padding
           borderRadius: 3,
           backgroundColor: 'rgba(56, 142, 60, 0.5)', // Matching transparent green background
           boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
+          width: { xs: '90%', sm: '80%', md: 'auto' }, // Responsive width for title box
         }}
       >
-        <Typography variant="h1" sx={{ fontWeight: '300', color: '#F1F8E9', marginBottom: 1 }}>
+        <Typography
+          variant="h1"
+          sx={{
+            fontWeight: '300',
+            color: '#1B5E20',
+            marginBottom: 1,
+            fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem' }, // Responsive font size
+          }}
+        >
           Inventory Management
         </Typography>
-        <Typography variant="h5" sx={{ color: '#E8F5E9' }}>
+        <Typography
+          variant="h5"
+          sx={{
+            color: '#1B5E20',
+            fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem' }, // Responsive font size for description
+          }}
+        >
           Manage your inventory effortlessly with this simple and intuitive app. Add, search, and track items with ease.
         </Typography>
       </Box>
@@ -113,14 +128,14 @@ export default function Home() {
         sx={{
           backgroundColor: 'rgba(56, 142, 60, 0.4)', // Increased transparency for the box
           borderRadius: 3,
-          padding: 4,
-          width: '85%', // Expanded width to take up more space
+          padding: { xs: 2, sm: 3, md: 4 }, // Responsive padding
+          width: { xs: '90%', sm: '85%', md: '85%' }, // Responsive width for inventory box
           height: 'auto',
-          minHeight: '60vh', // Reduced height for a shorter bottom
+          minHeight: '50vh', // Reduced height for a shorter bottom
           boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.2)',
           marginTop: '2%',
           marginBottom: '2%', // Matching top and bottom margins
-          marginLeft: '2%',
+          marginLeft: { xs: '5%', sm: '3%', md: '2%' }, // Responsive margin
         }}
       >
         <TextField
@@ -134,6 +149,7 @@ export default function Home() {
             bgcolor: '#A5D6A7',
             borderRadius: 3,
             boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+            fontSize: { xs: '0.8rem', sm: '1rem' }, // Responsive font size for input
           }}
         />
 
@@ -144,10 +160,10 @@ export default function Home() {
             backgroundColor: '#43A047', // Brighter green for better visibility
             color: 'white',
             fontWeight: 'bold',
-            paddingX: 4,
-            paddingY: 1.5, // Smaller padding for a smaller button
+            paddingX: { xs: 3, sm: 4 }, // Responsive padding
+            paddingY: { xs: 1, sm: 1.5 }, // Responsive padding
             borderRadius: 3,
-            fontSize: '1rem', // Slightly smaller font size
+            fontSize: { xs: '0.9rem', sm: '1rem' }, // Responsive font size
             boxShadow: '0px 4px 12px rgba(0, 128, 0, 0.5)',
             '&:hover': {
               backgroundColor: '#388E3C',
@@ -201,6 +217,7 @@ export default function Home() {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     color: '#1B5E20', // Darker green for better contrast
+                    fontSize: { xs: '0.9rem', sm: '1rem' }, // Responsive font size for items
                   }}
                 >
                   <Typography variant="h5">
